@@ -11,7 +11,7 @@
 | last_name        | string     | null:false |
 | first_name_kana  | string     | null:false |
 | last_name_kana   | string     | null:false |
-| birth_date       | datetime   | null:false |
+| birth_date       | date       | null:false |
 
 ### Association
 
@@ -31,7 +31,7 @@
 | status_id        | integer    | null:false                    |
 | delivery_fee_id  | integer    | null:false                    |
 | prefecture_id    | integer    | null:false                    |
-| delivery_days    | integer    | null:false                    |
+| delivery_days_id | integer    | null:false                    |
 | price            | integer    | null:false                    |
 
 ### Association
@@ -76,9 +76,11 @@
 
 | Column           | Type       | options                       |
 | ---------------- | ---------- | ----------------------------- |
+| purchase         | references | null:false,foreign_key: true  |
 | post_code        | string     | null:false                    |
 | city             | string     | null:false                    |
-| building_name    | string     | null:false                    |
+| house_number     | string     | null:false                    |
+| building_name    | string     |                               |
 | phone_number     | string     | null:false                    |
 | prefecture_id    | integer    | null:false                    |
 
