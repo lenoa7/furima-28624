@@ -23,8 +23,7 @@
 
 | Column           | Type       | options                       |
 | ---------------- | ---------- | ----------------------------- |
-| user_id          | references | null:false, foreign_key: true |
-| image            | string     | null:false                    |
+| user             | references | null:false, foreign_key: true |
 | name             | string     | null:false                    |
 | introduce        | text       | null:false                    |
 | category_id      | integer    | null:false                    |
@@ -39,7 +38,7 @@
 
 - has_many :comments
 - has_one :purchase
-- belong_to :user
+- belongs_to :user
 - belong_to_active_hash :category
 - belong_to_active_hash :condition
 - belong_to_active_hash :status
@@ -51,100 +50,39 @@
 
 | Column           | Type       | options                       |
 | ---------------- | ---------- | ----------------------------- |
-| user_id          | references | null:false, foreign_key: true |
-| item_id          | references | null:false, foreign_key: true |
+| user             | references | null:false, foreign_key: true |
+| item             | references | null:false, foreign_key: true |
 | message          | text       | null:false                    |
 
 ### Association
 
-- belong_to :user
-- belong_to :item
+- belongs_to :user
+- belongs_to :item
 
 ## purchases テーブル
 
 | Column           | Type       | options                       |
 | ---------------- | ---------- | ----------------------------- |
-| user_id          | references | null:false, foreign_key: true |
-| item_id          | references | null:false, foreign_key: true |
+| user             | references | null:false, foreign_key: true |
+| item             | references | null:false, foreign_key: true |
 
 ### Association
 
-- belong_to :user
-- belong_to :item
+- belongs_to :user
+- belongs_to :item
 - has_one :address
 
 ## address テーブル
 
 | Column           | Type       | options                       |
 | ---------------- | ---------- | ----------------------------- |
-| post_code        | integer    | null:false                    |
+| post_code        | string     | null:false                    |
 | city             | string     | null:false                    |
 | building_name    | string     | null:false                    |
-| phone_number     | integer    | null:false                    |
+| phone_number     | string     | null:false                    |
 | prefecture_id    | integer    | null:false                    |
 
 ### Association
 
 - belong_to :purchase
 - belong_to_active_hash :prefecture
-
-## category
-
-| Column           | Type       | options                       |
-| ---------------- | ---------- | ----------------------------- |
-| category         | string     | null:false                    |
-
-### Association
-
-- has_many :items
-
-
-## condition
-
-| Column           | Type       | options                       |
-| ---------------- | ---------- | ----------------------------- |
-| condition        | string     | null:false                    |
-
-### Association
-
-- has_many :items
-
-## status
-
-| Column           | Type       | options                       |
-| ---------------- | ---------- | ----------------------------- |
-| status           | string     | null:false                    |
-
-### Association
-
-- has_many :items
-
-## delivery_fee
-
-| Column           | Type       | options                       |
-| ---------------- | ---------- | ----------------------------- |
-| delivery_fee     | string     | null:false                    |
-
-### Association
-
-- has_many :items
-
-## prefecture
-
-| Column           | Type       | options                       |
-| ---------------- | ---------- | ----------------------------- |
-| prefecture       | string     | null:false                    |
-
-### Association
-
-- has_many :items
-
-## delivery_fee
-
-| Column           | Type       | options                       |
-| ---------------- | ---------- | ----------------------------- |
-| days             | string     | null:false                    |
-
-### Association
-
-- has_many :items
