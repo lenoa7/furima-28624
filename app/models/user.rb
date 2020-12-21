@@ -8,4 +8,10 @@ class User < ApplicationRecord
   validates :email , format: { with: VALID_EMAIL_REGEX }
   VALID_PASSWORD_REGEX = /([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])/
   validates :password ,presence: true , confirmation: true , length: {minimum: 6}, format: { with: VALID_PASSWORD_REGEX, message: "is invalid" }
+  VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥]+\z/
+  validates :first_name, presence: true ,format: { with: VALID_NAME_REGEX, message: "is invalid" }
+  validates :last_name, presence: true,format: { with: VALID_NAME_REGEX, message: "is invalid" }
+  validates :first_name_kana, presence: true,format: { with: VALID_NAME_REGEX, message: "is invalid" }
+  validates :last_name_kana, presence: true,format: { with: VALID_NAME_REGEX, message: "is invalid" }
+  validates :birth_date, presence: true
 end
