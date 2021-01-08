@@ -32,43 +32,43 @@ RSpec.describe Item, type: :model do
       end
 
       it "categryを選んでいないと登録できない" do
-        @item.category_id = "1"
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Category Select"
       end
 
       it "conditionを選んでいないと登録できない" do
-        @item.condition_id = "1"
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Condition Select"
       end
 
       it "delivery_feeを選んでいないと登録できない" do
-        @item.delivery_fee_id = "1"
+        @item.delivery_fee_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Delivery fee Select"
       end
 
       it "prefectureを選んでいないと登録できない" do
-        @item.prefecture_id = "1"
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Prefecture Select"
       end
 
       it "delivery_daysを選んでいないと登録できない" do
-        @item.delivery_days_id = "1"
+        @item.delivery_days_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Delivery days Select"
       end
 
       it "delivery_daysを選んでいないと登録できない" do
-        @item.delivery_days_id = "1"
+        @item.delivery_days_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Delivery days Select"
       end
 
       it "priceが空だと登録できない" do
-        @item.price = ""
+        @item.price = nil
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank"
       end
@@ -86,13 +86,13 @@ RSpec.describe Item, type: :model do
       end
 
       it "priceが300未満だと登録できない" do
-        @item.price = "299"
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include "Price is invalid"
       end
 
       it "priceが9999999超過だと登録できない" do
-        @item.price = "10000000"
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include "Price is invalid"
       end
