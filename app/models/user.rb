@@ -16,4 +16,5 @@ class User < ApplicationRecord
     validates :last_name_kana,format: { with: VALID_NAME_REGEX, message: "is invalid" }
     validates :birth_date
   end
+  has_many :items, dependent: :destroy
 end
