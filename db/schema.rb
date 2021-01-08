@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 2021_01_03_052211) do
     t.string "introduce", null: false
     t.integer "category_id", null: false
     t.integer "condition_id", null: false
-    t.integer "status_id", null: false
     t.integer "delivery_fee_id", null: false
     t.integer "prefecture_id", null: false
     t.integer "delivery_days_id", null: false
