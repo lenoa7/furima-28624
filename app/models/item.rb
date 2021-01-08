@@ -15,11 +15,15 @@ class Item < ApplicationRecord
     validates :image
     validates :name, length: {maximum: 40}
     validates :introduce, length: {maximum: 1000}
-    validates :category_id, numericality: { other_than: 1, message: "Select" }
-    validates :condition_id, numericality: { other_than: 1, message: "Select" }
-    validates :delivery_fee_id, numericality: { other_than: 1, message: "Select" }
-    validates :prefecture_id, numericality: { other_than: 1, message: "Select" }
-    validates :delivery_days_id, numericality: { other_than: 1, message: "Select" }
+
+    with_options numericality: { other_than: 1, message: "Select" } do
+      validates :category_id
+      validates :condition_id
+      validates :delivery_fee_id
+      validates :prefecture_id
+      validates :delivery_days_id
+    end
+
     validates :price ,format: { with: VALID_PRICE_REGEX }, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is invalid"}
   end
 end
