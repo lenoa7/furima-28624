@@ -59,7 +59,7 @@
 - belongs_to :user
 - belongs_to :item
 
-## purchases テーブル
+## orders テーブル
 
 | Column           | Type       | options                       |
 | ---------------- | ---------- | ----------------------------- |
