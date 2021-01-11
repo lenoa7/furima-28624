@@ -76,7 +76,7 @@
 
 | Column           | Type       | options                       |
 | ---------------- | ---------- | ----------------------------- |
-| purchase         | references | null:false,foreign_key: true  |
+| order            | references | null:false,foreign_key: true  |
 | post_code        | string     | null:false                    |
 | city             | string     | null:false                    |
 | house_number     | string     | null:false                    |
@@ -86,5 +86,5 @@
 
 ### Association
 
-- belong_to :purchase
+- belong_to :order
 - belong_to_active_hash :prefecture
