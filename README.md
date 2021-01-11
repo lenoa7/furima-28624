@@ -17,7 +17,7 @@
 
 - has_many :items
 - has_many :comments
-- has_many :orders
+- has_many :purchases
 
 ## items テーブル
 
@@ -37,7 +37,7 @@
 ### Association
 
 - has_many :comments
-- has_one :order
+- has_one :purchase
 - belongs_to :user
 - belong_to_active_hash :category
 - belong_to_active_hash :condition
@@ -65,6 +65,18 @@
 | ---------------- | ---------- | ----------------------------- |
 | user             | references | null:false, foreign_key: true |
 | item             | references | null:false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- has_one :address
+
+## address テーブル
+
+| Column           | Type       | options                       |
+| ---------------- | ---------- | ----------------------------- |
+| purchase         | references | null:false,foreign_key: true  |
 | post_code        | string     | null:false                    |
 | city             | string     | null:false                    |
 | house_number     | string     | null:false                    |
@@ -74,6 +86,5 @@
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
+- belong_to :purchase
 - belong_to_active_hash :prefecture
