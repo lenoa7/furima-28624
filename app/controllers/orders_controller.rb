@@ -6,9 +6,10 @@ class OrdersController < ApplicationController
   end
 
   def create
-    order = Order.create(order_params)
-    if order.save
-      redirect_to root_path
+    @order = BuyForm.new(order_params)
+    @item = Item.find(params[:id])
+    if @order.buy_save
+       redirect_to root_path
     else
       render :index
     end
@@ -16,6 +17,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:image,:name,:introduce,:category_id,:condition_id,:delivery_fee_id,:delivery_days_id,:price,:prefecture_id).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.permit(:post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id])
   end
 end
