@@ -37,7 +37,7 @@
 ### Association
 
 - has_many :comments
-- has_one :purchase
+- has_one :order
 - belongs_to :user
 - belong_to_active_hash :category
 - belong_to_active_hash :condition
