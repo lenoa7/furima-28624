@@ -9,8 +9,10 @@ class CreateAddresses < ActiveRecord::Migration[6.0]
       t.integer :prefecture_id, null: false
       t.bigint  :user_id
       t.bigint  :item_id
+      t.bigint  :order_id
       t.timestamps
     end
+    add_foreign_key :addresses, :orders
     add_foreign_key :addresses, :users
     add_foreign_key :addresses, :items
   end

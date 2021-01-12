@@ -42,9 +42,11 @@ ActiveRecord::Schema.define(version: 2021_01_11_054314) do
     t.integer "prefecture_id", null: false
     t.bigint "user_id"
     t.bigint "item_id"
+    t.bigint "order_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "fk_rails_0fd91c70fb"
+    t.index ["order_id"], name: "fk_rails_27d0ce0437"
     t.index ["user_id"], name: "fk_rails_48c9e0c5a2"
   end
 
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_054314) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "items"
+  add_foreign_key "addresses", "orders"
   add_foreign_key "addresses", "users"
   add_foreign_key "items", "users"
   add_foreign_key "orders", "items"
