@@ -2,7 +2,7 @@ class BuyForm
   include ActiveModel::Model
   include ActiveModel::AttributeMethods
 
-  attr_accessor :user_id, :item_id, :order_id, :post_code, :city, :house_number, :building_name, :phone_number, :prefecture_id, :card_number, :card_month, :card_year, :security_code
+  attr_accessor :user_id, :item_id, :order_id, :post_code, :city, :house_number, :building_name, :phone_number, :prefecture_id, :card_number, :card_month, :card_year, :security_code, :token
 
   VALID_POST_REGEX = /\A\d{3}[-]\d{4}\z/
   VALID_PHONE_REGEX = /\A\d{10,11}\z/

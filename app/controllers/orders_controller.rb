@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    binding.pry
     @order = BuyForm.new(order_params)
     if @order.valid? && @order.buy_save
        redirect_to root_path
@@ -18,7 +19,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:buy_form).permit(:post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:id])
+    params.require(:buy_form).permit(:post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:id],token: params[:token])
   end
 
   def correct_order_user
