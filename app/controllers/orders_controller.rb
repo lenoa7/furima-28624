@@ -1,17 +1,20 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :item_find
-  before_action :correct_order_user
+  before_action :redirect_if_own_item
+  before_action :redirect_if_sold_out
 
   def new
     @order = BuyForm.new
+    @item = Item.find(params[:id])
   end
 
   def create
-    binding.pry
     @order = BuyForm.new(order_params)
-    if @order.valid? && @order.buy_save
-       redirect_to root_path
+    @item = Item.find(params[:id])
+    if @order.valid?
+      pay_item
+      @order.buy_save
+      redirect_to root_path
     else
       render :new
     end
@@ -22,13 +25,21 @@ class OrdersController < ApplicationController
     params.require(:buy_form).permit(:post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:id],token: params[:token])
   end
 
-  def correct_order_user
-    redirect_to root_path if current_user.id == @item.user_id
+  def redirect_if_own_item
+    redirect_to root_path if Item.find(params[:id]).user_id == current_user.id
   end
 
-  def item_find
-    @item = Item.find(params[:id])
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
+    ) 
   end
 
+  def redirect_if_sold_out
+    redirect_to root_path if Order.find_by(item_id: params[:id]).present?
+  end
 
 end

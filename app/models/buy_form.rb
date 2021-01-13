@@ -8,24 +8,29 @@ class BuyForm
   VALID_PHONE_REGEX = /\A\d{10,11}\z/
 
   with_options presence: true do 
-    validates :card_number
-    validates :card_year
-    validates :card_month
-    validates :security_code
     validates :post_code, format: { with: VALID_POST_REGEX }
     validates :prefecture_id, numericality: { other_than: 1, message: "Select" } 
     validates :city
     validates :house_number
     validates :phone_number, format: { with: VALID_PHONE_REGEX }
+    validates :token
   end
 
   def buy_save
     ActiveRecord::Base.transaction do
       order = Order.create!( user_id: user_id, item_id: item_id)
-      Address.new(order_id: order.id, post_code: post_code, city: city, house_number: house_number, phone_number: phone_number, prefecture_id: prefecture_id).save!
-    rescue 
-      false
+      a = Address.new(order_id: order.id, post_code: post_code, city: city, house_number: house_number, phone_number: phone_number, prefecture_id: prefecture_id)
+      p '--------'
+      p a
+      p '--------'
+      a.save!
     end
+  rescue => e
+      false
+      p '--------'
+      p e
+      p '--------'
+
   end
 end
 
