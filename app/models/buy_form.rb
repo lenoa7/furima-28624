@@ -19,18 +19,10 @@ class BuyForm
   def buy_save
     ActiveRecord::Base.transaction do
       order = Order.create!( user_id: user_id, item_id: item_id)
-      a = Address.new(order_id: order.id, post_code: post_code, city: city, house_number: house_number, phone_number: phone_number, prefecture_id: prefecture_id)
-      p '--------'
-      p a
-      p '--------'
-      a.save!
+      Address.new(order_id: order.id, post_code: post_code, city: city, house_number: house_number, phone_number: phone_number, prefecture_id: prefecture_id).save!
     end
-  rescue => e
+  rescue 
       false
-      p '--------'
-      p e
-      p '--------'
-
   end
 end
 
