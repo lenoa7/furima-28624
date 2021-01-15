@@ -10,11 +10,11 @@ RSpec.describe BuyForm, type: :model do
 
   describe "商品購入機能" do
     context "商品購入がうまくいく時" do
-      it "post_code,prefecture_id,city,house_number,phone_number,token,user_id,item_idが存在すれば登録できる" do
+      it "post_code,prefecture_id,city,house_number,phone_number,token,user_id,item_id,building_nameが存在すれば登録できる" do
         expect(@buy_form).to be_valid
       end
-      it "building_nameがあっても登録できる" do
-        @buy_form.building_name = "建物名"
+      it "building_nameが空でも登録できる" do
+        @buy_form.building_name = ""
         expect(@buy_form).to be_valid
       end
     end
@@ -35,6 +35,11 @@ RSpec.describe BuyForm, type: :model do
         @buy_form.valid?
         expect(@buy_form.errors.full_messages).to include "Prefecture Select"
       end
+      it "prefecture_idが空だと登録できない" do
+        @buy_form.prefecture_id = nil
+        @buy_form.valid?
+        expect(@buy_form.errors.full_messages).to include "Prefecture can't be blank"
+      end
       it "cityが空だと登録できない" do
         @buy_form.city = ""
         @buy_form.valid?
@@ -52,6 +57,11 @@ RSpec.describe BuyForm, type: :model do
       end
       it "phone_numberにハイフンが入っていると登録できない" do
         @buy_form.phone_number = "06-1234-1234"
+        @buy_form.valid?
+        expect(@buy_form.errors.full_messages).to include "Phone number is invalid"
+      end
+      it "phone_numberが英数混合だと登録できない" do
+        @buy_form.phone_number = "06a1231234"
         @buy_form.valid?
         expect(@buy_form.errors.full_messages).to include "Phone number is invalid"
       end
