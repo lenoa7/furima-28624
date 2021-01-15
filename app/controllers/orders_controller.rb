@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
 
   def find_item_redirect
     @item = Item.find(params[:id])
-    redirect_to root_path if @item.user_id == current_user.id || @item.order.id.present?
+    redirect_to root_path if @item.user_id == current_user.id || @item.order.present?
   end
 
   def pay_item

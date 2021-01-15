@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show] 
   before_action :item_find, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_sold_out, except: [:index, :show]
+  before_action :redirect_if_sold_out, except: [:index,:show, :new, :create, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
@@ -58,6 +58,6 @@ class ItemsController < ApplicationController
   end
 
   def redirect_if_sold_out
-    redirect_to root_path if @item.order.id.present?
+    redirect_to root_path if @item.order.present?
   end
 end
