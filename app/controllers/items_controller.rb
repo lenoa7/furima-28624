@@ -58,6 +58,6 @@ class ItemsController < ApplicationController
   end
 
   def redirect_if_sold_out
-    redirect_to root_path if Order.find_by(item_id: params[:id]).present?
+    redirect_to root_path if @item.order.id.present?
   end
 end
