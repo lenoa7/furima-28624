@@ -13,6 +13,10 @@ RSpec.describe BuyForm, type: :model do
       it "post_code,prefecture_id,city,house_number,phone_number,token,user_id,item_idが存在すれば登録できる" do
         expect(@buy_form).to be_valid
       end
+      it "building_nameがあっても登録できる" do
+        @buy_form.building_name = "建物名"
+        expect(@buy_form).to be_valid
+      end
     end
 
     context "商品購入がうまくいかない時" do
