@@ -1,8 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_item
-  before_action :redirect_if_own_item
-  before_action :redirect_if_sold_out
+  before_action :find_item_redirect
 
   def new
     @order = BuyForm.new
@@ -24,12 +22,9 @@ class OrdersController < ApplicationController
     params.require(:buy_form).permit(:post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:id],token: params[:token])
   end
 
-  def redirect_if_own_item
-    redirect_to root_path if @item.user_id == current_user.id
-  end
-
-  def find_item
+  def find_item_redirect
     @item = Item.find(params[:id])
+    redirect_to root_path if @item.user_id == current_user.id || @item.order.id.present?
   end
 
   def pay_item
@@ -40,9 +35,4 @@ class OrdersController < ApplicationController
       currency: 'jpy'
     ) 
   end
-
-  def redirect_if_sold_out
-    redirect_to root_path if Order.find_by(item_id: params[:id]).present?
-  end
-
 end
