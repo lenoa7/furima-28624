@@ -1,16 +1,15 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_item
   before_action :redirect_if_own_item
   before_action :redirect_if_sold_out
 
   def new
     @order = BuyForm.new
-    @item = Item.find(params[:id])
   end
 
   def create
     @order = BuyForm.new(order_params)
-    @item = Item.find(params[:id])
     if @order.valid?
       pay_item
       @order.buy_save
@@ -26,7 +25,11 @@ class OrdersController < ApplicationController
   end
 
   def redirect_if_own_item
-    redirect_to root_path if Item.find(params[:id]).user_id == current_user.id
+    redirect_to root_path if @item.user_id == current_user.id
+  end
+
+  def find_item
+    @item = Item.find(params[:id])
   end
 
   def pay_item
